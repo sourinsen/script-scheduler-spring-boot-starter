@@ -1,0 +1,87 @@
+# Example configuration for Script Scheduler Spring Boot Starter
+# This file demonstrates all available configuration options
+
+script-scheduler:
+  # Enable or disable the scheduler (default: true)
+  enabled: true
+  
+  # Thread pool size for parallel script execution (default: 10)
+  thread-pool-size: 10
+  
+  # Timeout for graceful shutdown in seconds (default: 60)
+  shutdown-timeout-seconds: 60
+  
+  # Default timeout for all scripts in seconds (default: 300)
+  default-timeout-seconds: 300
+  
+  # Default interpreter for all scripts (default: /bin/sh)
+  default-interpreter: /bin/bash
+  
+  # Whether to log script output by default (default: true)
+  default-log-output: true
+  
+  # List of scheduled script jobs
+  jobs:
+    # Example job 1: Daily backup script
+    - name: daily-backup
+      script: /opt/scripts/backup.sh
+      cron: "0 0 2 * * ?"  # Every day at 2 AM
+      description: "Daily database and file backup"
+      interpreter: /bin/bash
+      working-directory: /opt/backup
+      timeout-seconds: 600
+      log-output: true
+      retry-attempts: 2
+      retry-delay-seconds: 30
+      environment:
+        BACKUP_DIR: /mnt/backup
+        RETENTION_DAYS: "30"
+        COMPRESS: "true"
+    
+    # Example job 2: Cleanup old logs every hour
+    - name: log-cleanup
+      script: /opt/scripts/cleanup-logs.sh
+      cron: "0 0 * * * ?"  # Every hour
+      description: "Remove logs older than 7 days"
+      timeout-seconds: 120
+      environment:
+        LOG_DIR: /var/log/app
+        MAX_AGE_DAYS: "7"
+    
+    # Example job 3: Health check every 5 minutes
+    - name: health-check
+      script: /opt/scripts/health-check.sh
+      cron: "0 */5 * * * ?"  # Every 5 minutes
+      description: "Check system health and send alerts"
+      timeout-seconds: 30
+      log-output: false  # Don't log output to reduce noise
+      environment:
+        ALERT_EMAIL: admin@example.com
+        THRESHOLD_CPU: "80"
+        THRESHOLD_MEMORY: "90"
+    
+    # Example job 4: Weekly report generation
+    - name: weekly-report
+      script: /opt/scripts/generate-report.py
+      cron: "0 0 9 ? * MON"  # Every Monday at 9 AM
+      description: "Generate and email weekly reports"
+      interpreter: /usr/bin/python3
+      working-directory: /opt/reports
+      timeout-seconds: 1800  # 30 minutes
+      environment:
+        REPORT_TYPE: weekly
+        EMAIL_RECIPIENTS: "team@example.com,manager@example.com"
+        DATABASE_URL: jdbc:postgresql://localhost:5432/mydb
+    
+    # Example job 5: Data synchronization twice daily
+    - name: data-sync
+      script: /opt/scripts/sync-data.sh
+      cron: "0 0 6,18 * * ?"  # At 6 AM and 6 PM
+      description: "Synchronize data between systems"
+      timeout-seconds: 900
+      retry-attempts: 3
+      retry-delay-seconds: 60
+      environment:
+        SOURCE_API: https://api.source.com
+        TARGET_API: https://api.target.com
+        API_KEY: "${API_KEY}"  # Can use Spring property placeholders

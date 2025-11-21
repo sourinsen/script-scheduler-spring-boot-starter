@@ -1,0 +1,83 @@
+{
+  "groups": [
+    {
+      "name": "script-scheduler",
+      "type": "io.scriptscheduler.spring.ScriptSchedulerProperties",
+      "sourceType": "io.scriptscheduler.spring.ScriptSchedulerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "script-scheduler.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the script scheduler is enabled.",
+      "defaultValue": true
+    },
+    {
+      "name": "script-scheduler.thread-pool-size",
+      "type": "java.lang.Integer",
+      "description": "The size of the thread pool used for executing scripts.",
+      "defaultValue": 10
+    },
+    {
+      "name": "script-scheduler.shutdown-timeout-seconds",
+      "type": "java.lang.Integer",
+      "description": "The timeout in seconds to wait for running scripts to complete on shutdown.",
+      "defaultValue": 60
+    },
+    {
+      "name": "script-scheduler.default-timeout-seconds",
+      "type": "java.lang.Integer",
+      "description": "Global default timeout for all scripts in seconds. Can be overridden per script.",
+      "defaultValue": 300
+    },
+    {
+      "name": "script-scheduler.default-interpreter",
+      "type": "java.lang.String",
+      "description": "Global default interpreter for all scripts. Can be overridden per script.",
+      "defaultValue": "/bin/sh"
+    },
+    {
+      "name": "script-scheduler.default-log-output",
+      "type": "java.lang.Boolean",
+      "description": "Whether to log script output by default. Can be overridden per script.",
+      "defaultValue": true
+    },
+    {
+      "name": "script-scheduler.jobs",
+      "type": "java.util.List<io.scriptscheduler.spring.ScheduledScript>",
+      "description": "List of scheduled script jobs."
+    }
+  ],
+  "hints": [
+    {
+      "name": "script-scheduler.jobs[].interpreter",
+      "values": [
+        {
+          "value": "/bin/sh",
+          "description": "Bourne shell (default)"
+        },
+        {
+          "value": "/bin/bash",
+          "description": "Bash shell"
+        },
+        {
+          "value": "/bin/zsh",
+          "description": "Z shell"
+        },
+        {
+          "value": "/usr/bin/python",
+          "description": "Python interpreter"
+        },
+        {
+          "value": "/usr/bin/python3",
+          "description": "Python 3 interpreter"
+        },
+        {
+          "value": "/usr/bin/node",
+          "description": "Node.js interpreter"
+        }
+      ]
+    }
+  ]
+}

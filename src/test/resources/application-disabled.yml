@@ -1,0 +1,10 @@
+# Test configuration with scheduler disabled
+script-scheduler:
+  enabled: false
+  
+  # These jobs should not be scheduled when enabled=false
+  jobs:
+    - name: should-not-run
+      script: /path/to/script.sh
+      cron: "0 * * * * ?"
+      description: "This job should not be scheduled"
