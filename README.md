@@ -431,8 +431,3 @@ Built with ❤️ using:
 - Spring Boot
 - Spring Scheduling
 - SLF4J
-
----
-
-**Note**: Replace `sourinsen` with your actual GitHub username and update contact information before publishing.
-# Production-Ready Examples for Script Scheduler
