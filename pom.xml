@@ -11,27 +11,36 @@
     <groupId>io.github.sourinsen</groupId>
     <artifactId>script-scheduler-spring-boot-starter</artifactId>
 	<version>1.0.0</version>
-	<name>script-scheduler-spring-boot-starter</name>
+    <packaging>jar</packaging>
+
+	<name>Script Scheduler Spring Boot Starter</name>
 	<description>Spring Boot Starter for scheduling and executing scripts via YAML configuration</description>
 	<url>https://github.com/sourinsen/script-scheduler-spring-boot-starter</url>
+
+    <!-- REQUIRED: License Information -->
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+
+    <!-- REQUIRED: Developer Information -->
 	<developers>
 		<developer>
 			<id>sourinsen</id>
 			<name>Sourin Kumar Sen</name>
 			<email>sourin.next@gmail.com</email>
+            <url>https://github.com/sourinsen</url>
 		</developer>
 	</developers>
+
+    <!-- REQUIRED: SCM Information -->
 	<scm>
 		<connection>scm:git:git://github.com/sourinsen/script-scheduler-spring-boot-starter.git</connection>
 		<developerConnection>scm:git:ssh://github.com:sourinsen/script-scheduler-spring-boot-starter.git</developerConnection>
-		<url>https://github.com/sourinsen/script-scheduler-spring-boot-starter</url>
+        <url>https://github.com/sourinsen/script-scheduler-spring-boot-starter/tree/main</url>
 	</scm>
 	<properties>
 		<java.version>21</java.version>
@@ -89,15 +98,12 @@
 		</dependency>
 	</dependencies>
 
+    <!-- REQUIRED: Distribution Management -->
 	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
+        <repository>
+            <id>central</id>
+            <url>https://central.sonatype.com/api/v1/publisher</url>
+        </repository>
 	</distributionManagement>
 
 	<build>
@@ -138,7 +144,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.6.2</version>
+                <version>3.6.3</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -147,6 +153,10 @@
 						</goals>
 					</execution>
 				</executions>
+                <configuration>
+                    <doclint>none</doclint>
+                    <source>21</source>
+                </configuration>
 			</plugin>
 
 			<!-- Maven GPG Plugin for signing -->
@@ -165,16 +175,16 @@
 				</executions>
 			</plugin>
 
-			<!-- Nexus Staging Maven Plugin -->
+            <!-- Central Publishing Plugin -->
 			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.13</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
 				<extensions>true</extensions>
 				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                    <autoPublish>true</autoPublish>
 				</configuration>
 			</plugin>
 		</plugins>
